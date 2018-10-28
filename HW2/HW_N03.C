@@ -31,8 +31,8 @@ void HW_N03(){
 	h_Gaus->SetLineColor(4);
 	h_Gaus->SetLineWidth(2);
    
-	h_Poi->GetXaxis()->SetTitle("n");
-    h_Poi->GetYaxis()->SetTitle("Prob");
+	h_Poi->GetXaxis()->SetTitle("x");
+    h_Poi->GetYaxis()->SetTitle("P(x)");
     
 // Set the parameters of gaussian distribution( standard deviation = 5, mean = 25)
 	double sigma=5; double mean=25;
@@ -63,6 +63,11 @@ void HW_N03(){
 	h_Gaus->GetYaxis()->SetRangeUser(0,0.14);
 	h_Bin->GetYaxis()->SetRangeUser(0,0.14);
 	h_Poi->GetYaxis()->SetRangeUser(0,0.14);
+	
+	h_Gaus->GetYaxis()->SetTitleOffset(1.4);
+	h_Bin->GetYaxis()->SetTitleOffset(1.4);
+	h_Poi->GetYaxis()->SetTitleOffset(1.4);
+
 	h_Gaus->SetTitle("Compare 3 distributions");
 	h_Bin->SetTitle("Compare 3 distributions");
 	h_Poi->SetTitle("Compare 3 distributions");
