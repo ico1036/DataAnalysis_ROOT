@@ -42,11 +42,11 @@ void HW_N03(){
     f_gaus->SetParameters(sigma,mean);
 	
 // Fill the histograms of three distributions
-    for (int i=0;i<10000;i++) {
+    for (int i=0;i<50;i++) {
         h_Poi->Fill(i,Poi(i, 25));
     }
     
-	for (int i=0;i<10000;i++) {
+	for (int i=0;i<50;i++) {
         h_Bin->Fill(i,Bin(i,50,0.5));
     }
     
