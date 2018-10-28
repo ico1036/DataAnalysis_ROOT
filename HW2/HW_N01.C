@@ -11,7 +11,7 @@ void HW_N01()
 {
 	gROOT->SetStyle("Plain");
 
-	TCanvas* c = new TCanvas("c","",2000,1500);
+	TCanvas* c = new TCanvas("c","c",2000,1000);
 	c->Divide(2,1);
 
 	h1 = new TH1F("h1","",20,0.0,20); 
@@ -28,8 +28,11 @@ void HW_N01()
 	h2->SetFillColor(5);
 	h2->GetXaxis()->SetTitle("k");
 	h2->GetYaxis()->SetTitle("Prob");
+	
 	h1->GetXaxis()->SetTitleOffset(1.2);
-	h2->GetXaxis()->SetTitleOffset(1.2)
+	h2->GetYaxis()->SetTitleOffset(1.4);
+	h1->GetYaxis()->SetTitleOffset(1.4);
+	h2->GetXaxis()->SetTitleOffset(1.2);
 	h1->SetTitle("Poisson(mean=5)");
 	h2->SetTitle("Poisson(mean=10)");
 
