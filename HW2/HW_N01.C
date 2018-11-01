@@ -18,8 +18,8 @@ void HW_N01()
 	h2 = new TH1F("h2","",20,0.0,20); 
 	
 	// Y-axis Limit 
-	h1->SetMaximum(0.25);
-    h2->SetMaximum(0.25);
+	h1->SetMaximum(0.35);
+    h2->SetMaximum(0.35);
 	
 	// Design the canvas,histogram 
 	h1->SetFillColor(5);
@@ -39,9 +39,9 @@ void HW_N01()
 	// First we Fill the number by order
 	// Then we weight with poisson distribution function(f1)
 	
-	// A distribution with Lamda(mean) = 5
+	// A distribution with Lamda(mean) = 2
 	for (int i=0;i<20;i++) {
-		h1->Fill(i,f1(i, 5));
+		h1->Fill(i,f1(i, 2));
 	}
 	// A distribution with Lamda(mean) = 10
 	for (int i=0;i<20;i++) {
