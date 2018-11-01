@@ -33,7 +33,7 @@ void HW_N01()
 	h2->GetYaxis()->SetTitleOffset(1.4);
 	h1->GetYaxis()->SetTitleOffset(1.4);
 	h2->GetXaxis()->SetTitleOffset(1.2);
-	h1->SetTitle("Poisson(mean=5)");
+	h1->SetTitle("Poisson(mean=2)");
 	h2->SetTitle("Poisson(mean=10)");
 
 	// First we Fill the number by order
