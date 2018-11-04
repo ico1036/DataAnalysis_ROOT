@@ -21,10 +21,12 @@ int n=0;
 
 // x*x+y*y+z*z <=1 means volume of 1/8*sphere
 		if(x*x+y*y+z*z <= 1){
-			h_in->Fill(x,y,z);
+			n++;
+		}
 	}
-		cout << N << endl; // cubic volume
-		cout << n << endl; // sphere volume
+	
+	cout << N << endl; // cubic volume
+	cout << n << endl; // sphere volume
 
 
 

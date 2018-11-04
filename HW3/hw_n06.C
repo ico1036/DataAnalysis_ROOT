@@ -1,6 +1,6 @@
 void hw_n06() {
 
-TCanvas *c = new TCanvas();
+TCanvas *c = new TCanvas("c","c",1600,1000);
 
 TH1F *h1 = new TH1F("uniform","uniform",100,0,1);
 TH1F *h2 = new TH1F("transform","transform",100,0,10);
@@ -27,7 +27,7 @@ double x;
 	h1->Draw();
 	c->cd(2);
 	h2->Draw();
-
+	c->Print("hw_n06.png");
 
 
 }
