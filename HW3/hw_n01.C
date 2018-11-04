@@ -42,7 +42,7 @@ void hw_n01(){
 
 	TCanvas *c1 = new TCanvas();
 	TCanvas *c2 = new TCanvas();
-	//c2->Divide(2,1);
+	TCanvas *c3 = new TCanvas();
 
 // Create "pos" instance from "Point" class 
 	Point *pos = new Point();
@@ -57,6 +57,7 @@ void hw_n01(){
 		h1->Fill(pos->Step());
 	}
 // 1000 particles move 1000 times
+
 	for(int epoch=0; epoch<1000; epoch++){
 		
 		pos->Initialize();
@@ -64,6 +65,7 @@ void hw_n01(){
 			h2->Fill(pos->Step());
 		}
 	}
+
 // Single particle moves 1000,000 times
 	pos->Initialize();
 	for(int i=0;  i<1000000; i++){
@@ -81,11 +83,12 @@ void hw_n01(){
 
 	c1->cd(); h1->Draw();
 	c2->cd();	h2->Draw();
-	//c2->cd(2);	h3->Draw();
-
+	c3->cd();	h3->Draw();
+	
 // Delete instance from memory
 	c1->Print("hw_n01_SingleParticle.png");
 	c2->Print("hw_n01_ManyParticles.png");
+	c3->Print("randomWork3.png");
 	delete pos;
 
 }
