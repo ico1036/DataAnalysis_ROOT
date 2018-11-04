@@ -38,7 +38,7 @@ void hw_n05(){
 	h_sub->Add(h_uni_norm,-1);
 
 // Plotting
-	c->Divide(2,1);
+	//c->Divide(2,1);
 	gStyle->SetOptStat(1111111);
 	//h_gaus->Draw("E");
 	//h_uniform->Draw("E");
@@ -46,7 +46,7 @@ void hw_n05(){
 	//h_uni_norm->Draw();
 	
 	h_sub->Draw("E");
-
+	c->Print("hw_n05.png");
 
 
 
