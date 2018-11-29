@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
 
 
      
-	TFile* outFile = new TFile(argv[1],"create");
+	TFile* outFile = new TFile(argv[1],"recreate");
 	TChain* inChain = new TChain("Delphes");
 
 	int    nttype = atoi(argv[2]); // data type: 0-> signal, others->background
@@ -53,14 +53,14 @@ int main(int argc, char** argv) {
 		for(int eleLoop=0; eleLoop < eleTCA->GetEntries(); eleLoop++){
 			Electron *elePtr = (Electron*)eleTCA->At(eleLoop);
 		
-			if(abs(elePtr->Eta) > 2.47) continue;
-			
+			//if(abs(elePtr->Eta) > 2.47) continue;
+			//if(elePtr->PT < 20 ) continue;
 			new((*eleSelTCA)[(int)eleSelTCA->GetEntries()]) Electron(*elePtr);
 		
 		}// Electron Loop end 
 
 		
-		if(eleSelTCA->GetEntries() <4) continue;
+		if(eleSelTCA->GetEntries() !=4) continue;
 		Electron* elePtr1 = (Electron*)eleSelTCA->At(0); 
 		Electron* elePtr2 = (Electron*)eleSelTCA->At(1); 
 		Electron* elePtr3 = (Electron*)eleSelTCA->At(2); 
