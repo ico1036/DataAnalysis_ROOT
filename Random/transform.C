@@ -1,0 +1,30 @@
+void transform() {
+
+TCanvas *c = new TCanvas();
+
+TH1F *h1 = new TH1F("uniform","uniform",100,0,1);
+TH1F *h2 = new TH1F("transform","transform",100,0,10);
+
+
+
+double x;
+
+
+	for(int i=0; i<1000; i++){
+
+		h1->Fill(gRandom->Rndm(1));
+		x = -1*log(gRandom->Rndm(1));
+		h2->Fill(x);
+
+	}
+
+
+	c->Divide(2,1);
+	c->cd(1);
+	h1->Draw();
+	c->cd(2);
+	h2->Draw();
+
+
+
+}
