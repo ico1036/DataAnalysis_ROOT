@@ -4,17 +4,30 @@ void draw() {
 
 double XMIN = -1;
 double XMAX = -1;
-long YMAX   = 1000;
-int   rebin = 5;
+long YMAX   = 100;
 
-const double Lumi         = 1500000.0;
-const double xsecSignal   = 0.00031847;
-const double xsecBKG      = 0.00615944588;
+const double Lumi         = 150000.0;
+//const double xsecSignal   = 0.00031847;
+const double xsecSignal   = 0.00127224;
 
-TFile *fSignal     = TFile::Open("Htozz.root")     ;
-TFile *fBKG	       = TFile::Open("BKG_4l.root")         ;
+// --ZZ
+const double xsecBKG      = 0.020879202;
 
-TString histname = "h_mass4e"; XMAX=1000; XMIN=0; rebin=1; YMAX=1000;
+// --4l
+//const double xsecBKG      = 0.02461615231;
+
+//TFile *fSignal     = TFile::Open("Htozz.root")     ; //--eeChannel
+//TFile *fBKG	       = TFile::Open("BKG_4l.root")  ;
+
+TFile *fSignal     = TFile::Open("HtoZZto4l.root")     ;
+TFile *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
+//TFile *fBKG	       = TFile::Open("BKG4l.root")         ;
+
+TString histname = "h_mass4l_mat"; XMAX=1000; XMIN=0; rebin=100; YMAX=200;
+//TString histname = "h_mass4l"; XMAX=200; XMIN=0; rebin=20; YMAX=300;
+
+//TString histname = "h_Z1Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
+//TString histname = "h_Z2Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
 
 
 TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/10000*Lumi) ;
@@ -34,21 +47,23 @@ gStyle->SetOptStat(0);
    gStyle->SetFrameBorderMode(0);
 
 
+	double binwidth= hBKG->GetBinWidth(1)/5.0;
+
+
  TCanvas* c1 = new TCanvas("c1", "c1", 1500, 1500);
    TPad *pad1 = new TPad("pad1", "pad1", 0.0, 0.0001, 1.0, 1.0);
 //   pad1->SetBottomMargin(0.01);
    pad1->SetGrid();
-   pad1->SetLogy();
+ //  pad1->SetLogy();
    pad1->Draw();
-
 pad1->cd();
    TH2F *null1 = new TH2F("null1","", 2, XMIN, XMAX, 2, 0.09,YMAX);
-   null1->GetYaxis()->SetTitle("Events");
+   null1->GetYaxis()->SetTitle(Form("Number of events / %3.1f GeV",binwidth));
    null1->GetXaxis()->SetTitle("M_{4l}");
-   null1->GetYaxis()->SetTitleOffset(1.07);
-   null1->GetXaxis()->SetTitleOffset(1.25);
-   null1->GetYaxis()->SetTitleSize(0.04);
-   null1->GetYaxis()->SetLabelSize(0.04);
+   null1->GetYaxis()->SetTitleOffset(1.8);
+   null1->GetXaxis()->SetTitleOffset(1.2);
+   null1->GetYaxis()->SetTitleSize(0.03);
+   null1->GetYaxis()->SetLabelSize(0.03);
    null1->Draw();
     hBKG->Draw("same hist");
     hSignal->Draw("same");
@@ -70,10 +85,9 @@ pad1->cd();
     latex.SetTextAlign(11);
     latex.DrawLatex(0.64,0.91,Form("%.1f fb^{-1} (13 TeV)", Lumi/1000.0));
 
-   latex.SetTextSize(0.035);
-    latex.DrawLatex(0.11,0.84,Form("(ee channel)"));
 
-    //c1->Print(TitleName + ".png");
+    c1->Print(histname + "Kinematic_ZZ.png");
+    //c1->Print("window200_" +histname + "Kinematic_ZZ.png");
 
 
 
