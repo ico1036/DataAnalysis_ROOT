@@ -11,20 +11,20 @@ const double Lumi         = 150000.0;
 const double xsecSignal   = 0.00127224;
 
 // --ZZ
-const double xsecBKG      = 0.020879202;
+//const double xsecBKG      = 0.020879202;
 
 // --4l
-//const double xsecBKG      = 0.02461615231;
+const double xsecBKG      = 0.02461615231;
 
 //TFile *fSignal     = TFile::Open("Htozz.root")     ; //--eeChannel
 //TFile *fBKG	       = TFile::Open("BKG_4l.root")  ;
 
 TFile *fSignal     = TFile::Open("HtoZZto4l.root")     ;
-TFile *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
-//TFile *fBKG	       = TFile::Open("BKG4l.root")         ;
+//TFile *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
+TFile *fBKG	       = TFile::Open("BKG4l.root")         ;
 
-TString histname = "h_mass4l_mat"; XMAX=1000; XMIN=0; rebin=100; YMAX=200;
-//TString histname = "h_mass4l"; XMAX=200; XMIN=0; rebin=20; YMAX=300;
+//TString histname = "h_mass4l_mat"; XMAX=800; XMIN=0; rebin=100; YMAX=200;
+TString histname = "h_mass4l"; XMAX=1000; XMIN=0; rebin=100; YMAX=600;
 
 //TString histname = "h_Z1Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
 //TString histname = "h_Z2Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
@@ -86,7 +86,7 @@ pad1->cd();
     latex.DrawLatex(0.64,0.91,Form("%.1f fb^{-1} (13 TeV)", Lumi/1000.0));
 
 
-    c1->Print(histname + "Kinematic_ZZ.png");
+    c1->Print(histname + "Kinematic_ll.png");
     //c1->Print("window200_" +histname + "Kinematic_ZZ.png");
 
 
