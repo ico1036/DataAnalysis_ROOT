@@ -23,7 +23,7 @@ TFile *fSignal     = TFile::Open("HtoZZto4l.root")     ;
 //TFile *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
 TFile *fBKG	       = TFile::Open("BKG4l.root")         ;
 
-TString histname = "h_mass4l_mat"; XMAX=200; XMIN=70; rebin=20; YMAX=200;
+TString histname = "h_mass4l_mat"; XMAX=200; XMIN=70; rebin=20; YMAX=100;
 //TString histname = "h_mass4l"; XMAX=200; XMIN=0; rebin=20; YMAX=140;
 
 //TString histname = "h_Z1Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
