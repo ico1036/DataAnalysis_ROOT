@@ -2,10 +2,10 @@
 
 double f1(double *x, double *par)
 {
-  return par[2]+par[0]*x[0] + par[1]*x[0]*x[0];
+  return par[0] + par[1]*x[0];
 }
 
-void lect6_1() 
+void lenear_fit() 
 {
   int n = 5;
   double x[n], y[n], e[n];
@@ -24,7 +24,7 @@ void lect6_1()
   g->SetLineColor(2);
   g->SetLineWidth(3.0);
 
-  TF1 *func = new TF1("func",f1,0,6,3); // xmin, xmax, npar
+  TF1 *func = new TF1("func",f1,0,6,2); // xmin, xmax, npar
 
   TCanvas *c1 = new TCanvas("c1","Linear fitting");
   g->Draw("ap");
