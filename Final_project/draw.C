@@ -23,8 +23,8 @@ TFile *fSignal     = TFile::Open("HtoZZto4l.root")     ;
 //TFile *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
 TFile *fBKG	       = TFile::Open("BKG4l.root")         ;
 
-//TString histname = "h_mass4l_mat"; XMAX=800; XMIN=0; rebin=100; YMAX=200;
-TString histname = "h_mass4l"; XMAX=1000; XMIN=0; rebin=100; YMAX=600;
+TString histname = "h_mass4l_mat"; XMAX=200; XMIN=70; rebin=20; YMAX=200;
+//TString histname = "h_mass4l"; XMAX=200; XMIN=0; rebin=20; YMAX=140;
 
 //TString histname = "h_Z1Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
 //TString histname = "h_Z2Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
@@ -86,11 +86,13 @@ pad1->cd();
     latex.DrawLatex(0.64,0.91,Form("%.1f fb^{-1} (13 TeV)", Lumi/1000.0));
 
 
-    c1->Print(histname + "Kinematic_ll.png");
+    //c1->Print(histname + "Kinematic_ll.png");
     //c1->Print("window200_" +histname + "Kinematic_ZZ.png");
 
 
-
+	double maxIntibin = hSignal->GetXaxis()->FindBin(200);
+	cout << hSignal->Integral(0,maxIntibin) << endl;
+	cout << hBKG->Integral(0,maxIntibin) << endl;
 
 
 }

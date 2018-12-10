@@ -51,6 +51,9 @@ int main(int argc, char** argv) {
 	TH1F *h_ele4PT = new TH1F("h_ele4PT","ele4PT",1000,0,200);
 	
 	TH1F *h_muPT  = new TH1F("h_muPT" ,"muPT" ,1000,0,200);
+	
+	TH1F *hM_anal = new TH1F("4lMass","4lMass",10000,70,200);
+	
 	//TH1F *h_mu1PT = new TH1F("h_mu1PT","mu1PT",1000,0,200);
 	//TH1F *h_mu2PT = new TH1F("h_mu2PT","mu2PT",1000,0,200);
 	//TH1F *h_mu3PT = new TH1F("h_mu3PT","mu3PT",1000,0,200);
@@ -218,15 +221,16 @@ int main(int argc, char** argv) {
 
 		if(Z1Vec.M() < 40 || Z1Vec.M() > 120) continue;		
 		if(Z2Vec.M() < 12 || Z2Vec.M() > 120) continue;		
-			
+					
 		TLorentzVector Z1Z2Vec = Z1Vec + Z2Vec;
 		h_mass4e_mat->Fill(Z1Z2Vec.M());
+		h_Z1Mass->Fill(Z1Vec.M());
+		h_Z2Mass->Fill(Z2Vec.M());
 
+	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 200) continue;
+		hM_anal->Fill(Z1Z2Vec.M());
+		}		
 
-			h_Z1Mass->Fill(Z1Vec.M());
-	    	h_Z2Mass->Fill(Z2Vec.M());
-		
-		}
 	// --4 Muons	
 		if(muSelTCA->GetEntries() == 4){
 
@@ -294,7 +298,11 @@ int main(int argc, char** argv) {
 
 		h_Z1Mass->Fill(Z1Vec.M());
 	    h_Z2Mass->Fill(Z2Vec.M());
-				
+			
+	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 200) continue;
+		hM_anal->Fill(Z1Z2Vec.M());
+	
+	
 		}
 
 
@@ -351,6 +359,10 @@ int main(int argc, char** argv) {
 
 		TLorentzVector Z1Z2Vec = Z1Vec + Z2Vec;
 		h_mass2e2m->Fill(Z1Z2Vec.M());
+		
+	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 200) continue;
+		hM_anal->Fill(Z1Z2Vec.M());
+
 		}
 
 
