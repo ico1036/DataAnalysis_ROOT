@@ -227,7 +227,7 @@ int main(int argc, char** argv) {
 		h_Z1Mass->Fill(Z1Vec.M());
 		h_Z2Mass->Fill(Z2Vec.M());
 
-	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 200) continue;
+	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 180) continue;
 		hM_anal->Fill(Z1Z2Vec.M());
 		}		
 
@@ -299,7 +299,7 @@ int main(int argc, char** argv) {
 		h_Z1Mass->Fill(Z1Vec.M());
 	    h_Z2Mass->Fill(Z2Vec.M());
 			
-	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 200) continue;
+	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 180) continue;
 		hM_anal->Fill(Z1Z2Vec.M());
 	
 	
@@ -360,7 +360,7 @@ int main(int argc, char** argv) {
 		TLorentzVector Z1Z2Vec = Z1Vec + Z2Vec;
 		h_mass2e2m->Fill(Z1Z2Vec.M());
 		
-	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 200) continue;
+	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 180) continue;
 		hM_anal->Fill(Z1Z2Vec.M());
 
 		}
