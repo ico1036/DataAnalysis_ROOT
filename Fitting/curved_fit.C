@@ -30,4 +30,8 @@ void curved_fit()
   g->Draw("ap");
   g->Fit("func");
   g->GetFunction("func")->SetLineColor(4);
+
+
+	cout << func->GetChisquare() << endl;
+
 }

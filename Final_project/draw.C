@@ -1,7 +1,5 @@
 #include "TMath.h"
 
-
-
 void draw() {
 
 double XMIN = -1;
@@ -24,8 +22,8 @@ long YMAX   = 100;
 	//TFile *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
 	TFile *fBKG	       = TFile::Open("BKG4l.root")         ;
 	
-	//TString histname = "h_mass4l_mat"; XMAX=400; XMIN=70; rebin=20; YMAX=100;
-	TString histname = "4lMass"; XMAX=180; XMIN=70; rebin=20; YMAX=20;
+	TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=1; YMAX=10;
+	//TString histname = "4lMass"; XMAX=140; XMIN=110; rebin=1; YMAX=20;
 	//TString histname = "h_mass4l"; XMAX=200; XMIN=0; rebin=20; YMAX=140;
 	//TString histname = "h_Z1Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
 	//TString histname = "h_Z2Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
@@ -55,14 +53,25 @@ long YMAX   = 100;
 	TF1 *sigfit = new TF1("sigfit", "gaus",70,180);
 	TF1 *f1 	= new TF1("f1","[0]*TMath::Landau(x,[1],[2])",70,180);
 	TF1 *bkgfit = new TF1("bkgfit","gaus(0)+f1",70,180);
-	TF1 *glbfit = new TF1("glbfit","gaus(0)+gaus(3)+f1",70,180);
 	
 	bkgfit->SetParLimits(1,80,100);	
-	bkgfit->SetParLimits(2,1,3);	
-	bkgfit->SetParLimits(3,20,30);	
+	bkgfit->SetParLimits(2,0.5,2);	
+	bkgfit->SetParLimits(3,8,15);	
 	bkgfit->SetParLimits(4,120,140);	
-	bkgfit->SetParLimits(5,15,40);	
+	bkgfit->SetParLimits(5,12,30);	
 	
+	//bkgfit->SetParLimits(1,80,100);	
+	//bkgfit->SetParLimits(2,1,3);	
+	//bkgfit->SetParLimits(4,120,135);	
+	//bkgfit->SetParLimits(5,1,3);	
+	//bkgfit->SetParLimits(7,135,150);	
+	//bkgfit->SetParLimits(8,1,3);	
+	//bkgfit->SetParLimits(10,150,180);	
+	//bkgfit->SetParLimits(11,1,3);	
+
+
+
+
 	//glbfit->SetParLimits(1,80,100);
 	//glbfit->SetParLimits(2,1,3);
 	//glbfit->SetParLimits(4,110,130);
@@ -82,6 +91,13 @@ long YMAX   = 100;
 // --fitting histogram
 	hSignal->Fit(sigfit);
 	hBKG->Fit(bkgfit);
+	TF1 *glbfit = new TF1("glbfit","sigfit+bkgfit",70,180);
+	glbfit->SetLineColor(6);	
+
+
+	cout << "background Chi2/ndf: " << bkgfit->GetChisquare()/5 << endl;
+	cout << "signal 	Chi2/ndf: " << sigfit->GetChisquare()/2 << endl;
+
 
 // --Pad Design
    gStyle->SetOptStat(0);
@@ -113,7 +129,7 @@ long YMAX   = 100;
    		 hSignal->Draw("same p");
    		 bkgfit->Draw("same");
    		 sigfit->Draw("same");
-		 //glbfit->Draw("same");
+		 glbfit->Draw("same");
 
 // --legend	
    	TLegend *l0 = new TLegend(0.65,0.89,0.90,0.65);
@@ -121,8 +137,13 @@ long YMAX   = 100;
    		l0->SetBorderSize(0);
    		l0->SetTextSize(0.03);
 
-	  TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  ); l01->SetTextColor(hSignal->GetMarkerColor());  
-	  TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"l"  ); l02->SetTextColor(hBKG->GetMarkerColor());
+	  //TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  );    l01->SetTextColor(hSignal->GetMarkerColor());  
+	  //TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"l"  ); l02->SetTextColor(hBKG->GetMarkerColor());
+	  
+	  TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  );    l01->SetTextColor(sigfit->GetLineColor());  
+	  TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"l"  ); l02->SetTextColor(bkgfit->GetLineColor());
+	  
+	  TLegendEntry* l03 = l0->AddEntry(glbfit,"GlobalFit"     ,"l"  ); l03->SetTextColor(glbfit->GetLineColor());
 	
  		l0->Draw();
 
@@ -131,12 +152,13 @@ long YMAX   = 100;
    			latex.SetNDC();
    			latex.SetTextSize(0.04);
     		latex.SetTextAlign(11);
-    		latex.DrawLatex(0.64,0.91,Form("%.1f fb^{-1} (13 TeV)", Lumi/1000.0));
+    		latex.DrawLatex(0.6,0.91,Form("%.1f fb^{-1} (13 TeV)", Lumi/1000.0));
 
 
     //c1->Print(histname + "Kinematic_ll.png");
     //c1->Print("window200_" +histname + "Kinematic_ZZ.png");
-	c1->Print("fit_result.png");
+	c1->Print("fit_result_global.png");
+	//c1->Print("fit_result_narrow.png");
 
 	double maxIntibin = hSignal->GetXaxis()->FindBin(200);
 	cout << hSignal->Integral(0,maxIntibin) << endl;
