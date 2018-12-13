@@ -22,6 +22,7 @@ long YMAX   = 100;
 	//TFile *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
 	TFile *fBKG	       = TFile::Open("BKG4l.root")         ;
 	
+	//TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=20; YMAX=200;
 	TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=1; YMAX=10;
 	//TString histname = "4lMass"; XMAX=140; XMIN=110; rebin=1; YMAX=20;
 	//TString histname = "h_mass4l"; XMAX=200; XMIN=0; rebin=20; YMAX=140;
@@ -98,7 +99,6 @@ long YMAX   = 100;
 	cout << "background Chi2/ndf: " << bkgfit->GetChisquare()/5 << endl;
 	cout << "signal 	Chi2/ndf: " << sigfit->GetChisquare()/2 << endl;
 
-
 // --Pad Design
    gStyle->SetOptStat(0);
    gStyle->SetCanvasColor(0);
@@ -127,9 +127,9 @@ long YMAX   = 100;
    		null1->Draw();
    		 hBKG->Draw("same p");
    		 hSignal->Draw("same p");
-   		 bkgfit->Draw("same");
-   		 sigfit->Draw("same");
-		 glbfit->Draw("same");
+   		bkgfit->Draw("same");
+   		sigfit->Draw("same");
+		glbfit->Draw("same");
 
 // --legend	
    	TLegend *l0 = new TLegend(0.65,0.89,0.90,0.65);
@@ -137,8 +137,8 @@ long YMAX   = 100;
    		l0->SetBorderSize(0);
    		l0->SetTextSize(0.03);
 
-	  //TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  );    l01->SetTextColor(hSignal->GetMarkerColor());  
-	  //TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"l"  ); l02->SetTextColor(hBKG->GetMarkerColor());
+	  //TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  );    l01->SetTextColor(hSignal->GetLineColor());  
+	  //TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"f"  ); l02->SetTextColor(hBKG->GetLineColor());
 	  
 	  TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  );    l01->SetTextColor(sigfit->GetLineColor());  
 	  TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"l"  ); l02->SetTextColor(bkgfit->GetLineColor());
@@ -157,8 +157,9 @@ long YMAX   = 100;
 
     //c1->Print(histname + "Kinematic_ll.png");
     //c1->Print("window200_" +histname + "Kinematic_ZZ.png");
-	c1->Print("fit_result_global.png");
+	//c1->Print("fit_result_global.png");
 	//c1->Print("fit_result_narrow.png");
+	//c1->Print("4lmass.png");
 
 	double maxIntibin = hSignal->GetXaxis()->FindBin(200);
 	cout << hSignal->Integral(0,maxIntibin) << endl;
