@@ -1,23 +1,23 @@
 
 Processing draw.C...
- FCN=9.90682 FROM MIGRAD    STATUS=CONVERGED      93 CALLS          94 TOTAL
-                     EDM=1.13757e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+ FCN=0.643554 FROM MIGRAD    STATUS=CONVERGED     106 CALLS         107 TOTAL
+                     EDM=2.60434e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  sig_strength   3.04694e+00   3.75614e-01   4.41387e-04  -2.98090e-04
-   2  sig_mean     1.24593e+02   1.52619e-01   2.35850e-04  -4.25339e-05
-   3  sig_sigma    1.62394e+00   1.37738e-01   2.39107e-05  -9.86028e-03
- FCN=550.095 FROM MIGRAD    STATUS=CONVERGED     542 CALLS         543 TOTAL
-                     EDM=6.1102e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+   1  sig_strength   5.66561e+00   2.14087e+00   9.93691e-04   4.94818e-06
+   2  sig_mean     1.24534e+02   5.23606e-01   3.14775e-04   8.10167e-06
+   3  sig_sigma    1.79467e+00   4.54641e-01   2.94574e-05  -9.75739e-04
+ FCN=23.8275 FROM MIGRAD    STATUS=CONVERGED     515 CALLS         516 TOTAL
+                     EDM=9.74756e-08    STRATEGY= 1  ERROR MATRIX UNCERTAINTY   4.5 per cent
   EXT PARAMETER                                   STEP         FIRST   
   NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
-   1  bkg_strength   3.36942e+00   2.60955e-01   2.99053e-03  -3.45448e-03
-   2  bkg_mean     9.14443e+01   1.67880e-01   1.94433e-04  -2.76649e-02
-   3  bkg_sigma    2.00000e+00   1.32922e-01   6.93314e-03** at limit **
-   4  bkg_scale    8.00000e+00   1.27713e-02   9.79601e-04** at limit **
-   5  bkg_mpv      1.40000e+02   3.42003e-01   3.00706e-03** at limit **
-   6  bkg_landau_sigma   1.32600e+01   7.04419e-01   1.76603e-03   2.39902e-03
-background Chi2/ndf: 110.019
-signal 	Chi2/ndf: 4.95341
-133.871
-900.213
+   1  bkg_strength   8.16248e+00   1.70951e+00  -2.70237e-04   1.31611e-04
+   2  bkg_mean     9.13105e+01   5.19937e-01  -3.60733e-05   6.00996e-03
+   3  bkg_sigma    2.00000e+00   2.61473e-01  -5.16913e-04** at limit **
+   4  bkg_scale    1.14244e+01   1.78927e+00  -9.87285e-04  -4.46386e-04
+   5  bkg_mpv      1.40000e+02   1.09647e+00   1.08200e-03** at limit **
+   6  bkg_landau_sigma   1.38658e+01   1.70026e+00   6.47389e-04  -5.33544e-04
+background Chi2/ndf: 4.7655
+signal 	Chi2/ndf: 0.321777
+13.3871
+92.0521

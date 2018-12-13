@@ -23,18 +23,19 @@ long YMAX   = 100;
 	TFile *fBKG	       = TFile::Open("BKG4l.root")         ;
 	
 	//TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=20; YMAX=200;
-	TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=1; YMAX=10;
+	TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=20; YMAX=20;
 	//TString histname = "4lMass"; XMAX=140; XMIN=110; rebin=1; YMAX=20;
 	//TString histname = "h_mass4l"; XMAX=200; XMIN=0; rebin=20; YMAX=140;
 	//TString histname = "h_Z1Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
 	//TString histname = "h_Z2Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
 	
 // --Weighting	
-	TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/10000*Lumi) ;
-	TH1F *hBKG 	  = (TH1F*)fBKG	  ->Get(histname); hBKG	  ->Scale(xsecBKG/10000*Lumi) ;
+	TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/100000*Lumi) ;
+	TH1F *hBKG 	  = (TH1F*)fBKG	  ->Get(histname); hBKG	  ->Scale(xsecBKG/100000*Lumi) ;
 
 
 // --histrogram design	
+	
 	//hSignal->SetLineWidth(3); hSignal->SetLineColor(2);
 	//hBKG->SetFillColor(38); hBKG->SetLineColor(38);
 	
@@ -46,7 +47,6 @@ long YMAX   = 100;
 	hSignal->Rebin(rebin);
 	hBKG->Rebin(rebin);
 	
-
 // --fitting function
 	
 
@@ -61,29 +61,8 @@ long YMAX   = 100;
 	bkgfit->SetParLimits(4,120,140);	
 	bkgfit->SetParLimits(5,12,30);	
 	
-	//bkgfit->SetParLimits(1,80,100);	
-	//bkgfit->SetParLimits(2,1,3);	
-	//bkgfit->SetParLimits(4,120,135);	
-	//bkgfit->SetParLimits(5,1,3);	
-	//bkgfit->SetParLimits(7,135,150);	
-	//bkgfit->SetParLimits(8,1,3);	
-	//bkgfit->SetParLimits(10,150,180);	
-	//bkgfit->SetParLimits(11,1,3);	
-
-
-
-
-	//glbfit->SetParLimits(1,80,100);
-	//glbfit->SetParLimits(2,1,3);
-	//glbfit->SetParLimits(4,110,130);
-	//glbfit->SetParLimits(5,1,3);
-	//glbfit->SetParLimits(6,20,30);	
-	//glbfit->SetParLimits(7,120,140);	
-	//glbfit->SetParLimits(8,10,40);	
-
 	sigfit->SetLineColor(2);	
 	bkgfit->SetLineColor(4);	
-	//glbfit->SetLineColor(6);
 
 	bkgfit->SetParNames("bkg_strength","bkg_mean","bkg_sigma","bkg_scale","bkg_mpv","bkg_landau_sigma");
 	sigfit->SetParNames("sig_strength","sig_mean","sig_sigma");
@@ -110,7 +89,7 @@ long YMAX   = 100;
 
 	double binwidth= hBKG->GetBinWidth(1);
 
-	TCanvas* c1 = new TCanvas("c1", "c1", 1500, 1500);
+	TCanvas* c1 = new TCanvas("c1", "c1", 500, 500);
 	   	TPad *pad1 = new TPad("pad1", "pad1", 0.0, 0.0001, 1.0, 1.0);
 		//   pad1->SetBottomMargin(0.01);
 	   	pad1->SetGrid();
@@ -125,11 +104,11 @@ long YMAX   = 100;
    		null1->GetYaxis()->SetTitleSize(0.03);
    		null1->GetYaxis()->SetLabelSize(0.03);
    		null1->Draw();
-   		 hBKG->Draw("same p");
-   		 hSignal->Draw("same p");
+   		 hBKG->Draw("p same");
+   		 hSignal->Draw("p same");
    		bkgfit->Draw("same");
    		sigfit->Draw("same");
-		glbfit->Draw("same");
+		//glbfit->Draw("same");
 
 // --legend	
    	TLegend *l0 = new TLegend(0.65,0.89,0.90,0.65);
@@ -143,7 +122,7 @@ long YMAX   = 100;
 	  TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  );    l01->SetTextColor(sigfit->GetLineColor());  
 	  TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"l"  ); l02->SetTextColor(bkgfit->GetLineColor());
 	  
-	  TLegendEntry* l03 = l0->AddEntry(glbfit,"GlobalFit"     ,"l"  ); l03->SetTextColor(glbfit->GetLineColor());
+	 // TLegendEntry* l03 = l0->AddEntry(glbfit,"GlobalFit"     ,"l"  ); l03->SetTextColor(glbfit->GetLineColor());
 	
  		l0->Draw();
 
@@ -158,6 +137,7 @@ long YMAX   = 100;
     //c1->Print(histname + "Kinematic_ll.png");
     //c1->Print("window200_" +histname + "Kinematic_ZZ.png");
 	//c1->Print("fit_result_global.png");
+	c1->Print("fit_result.png");
 	//c1->Print("fit_result_narrow.png");
 	//c1->Print("4lmass.png");
 

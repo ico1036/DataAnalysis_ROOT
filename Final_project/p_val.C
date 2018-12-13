@@ -28,12 +28,12 @@ void p_val() {
 
 	
 // --Weighting: Number of expected events
-	TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/10000*Lumi) ;
-	TH1F *hBKG 	  = (TH1F*)fBKG	  ->Get(histname); hBKG	  ->Scale(xsecBKG/10000*Lumi) ;
+	TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/100000*Lumi) ;
+	TH1F *hBKG 	  = (TH1F*)fBKG	  ->Get(histname); hBKG	  ->Scale(xsecBKG/100000*Lumi) ;
 
 
 // --rebinning: Inegrate the mass point
-    rebin=10;
+    rebin=21;
 	hSignal->Rebin(rebin);
     hBKG->Rebin(rebin);
 
@@ -54,14 +54,14 @@ void p_val() {
 		double N_exptect_bgr = hBKG->GetBinContent(nbin);
 		
 		double pvalue_expected       = GetPvalue(N_exptect_bgr,N_exptect_bgr + N_exptect_sig);
-		//double significance_expected = ROOT::Math::gaussian_quantile_c(pvalue_expected,1);
+		double significance_expected = ROOT::Math::gaussian_quantile_c(pvalue_expected,1);
 
 		double exclusion_expected = GetExclusion(N_exptect_bgr + N_exptect_sig,N_exptect_bgr);
 
 	
-			//cout <<hSignal->GetXaxis()->GetBinCenter(nbin) << "						"<< pvalue_expected << endl;
+			//cout <<hSignal->GetXaxis()->GetBinCenter(nbin) << "			"<< pvalue_expected <<"			" << significance_expected << endl;
 			//cout <<hSignal->GetXaxis()->GetBinCenter(nbin) << "						"<< exclusion_expected << endl;
-			
+			cout << N_exptect_sig << "					" << N_exptect_bgr << endl;
 			x[nbin-Startbin] = hSignal->GetXaxis()->GetBinCenter(nbin);
 			y_pval[nbin-Startbin] = pvalue_expected;
 			y_exclu[nbin-Startbin] = exclusion_expected;
@@ -69,7 +69,7 @@ void p_val() {
 	}
 
 // --Plotting P-value or CLs
-	//TGraph *g_pval = new TGraph(Endbin-Startbin+1,x,y_pval);	XMAX=140; XMIN=110;  YMIN=1.0e-14;YMAX=10; TString YaxisName="Local P value";
+	//TGraph *g_pval = new TGraph(Endbin-Startbin+1,x,y_pval);	XMAX=140; XMIN=110;  YMIN=1.0e-9;YMAX=10; TString YaxisName="Local P value";
 	TGraph *g_exclu = new TGraph(Endbin-Startbin+1,x,y_exclu);	XMAX=140; XMIN=110;  YMIN=1.0e-10; YMAX=10; TString YaxisName="Exclusion rate";
 	
 
@@ -88,7 +88,7 @@ void p_val() {
 	l1->SetLineColor(2);
 	
 	// --Significance 5 sigma
-	TLine *l2 = new TLine(110,2.9e-07,140,2.9e-07);
+	TLine *l2 = new TLine(110,0.000333924,140,0.000333924);
 	l2->SetLineStyle(7);
 	l2->SetLineWidth(4);
 	l2->SetLineColor(2);
@@ -106,7 +106,7 @@ void p_val() {
 	double binwidth= hBKG->GetBinWidth(1);
 	
 
-	TCanvas* c1 = new TCanvas("c1", "c1", 1500, 1500);
+	TCanvas* c1 = new TCanvas("c1", "c1", 500, 500);
 	   	TPad *pad1 = new TPad("pad1", "pad1", 0.0, 0.0001, 1.0, 1.0);
 		//   pad1->SetBottomMargin(0.01);
 	   	pad1->SetGrid();
@@ -116,13 +116,13 @@ void p_val() {
    		TH2F *null1 = new TH2F("null1","", 2, XMIN, XMAX, 2, YMIN,YMAX);
    		null1->GetYaxis()->SetTitle(YaxisName);
    		null1->GetXaxis()->SetTitle(Form("M_{4l} / %3.1f GeV",xperbin));
-   		null1->GetYaxis()->SetTitleOffset(1.4);
+   		null1->GetYaxis()->SetTitleOffset(0.8);
    		null1->GetXaxis()->SetTitleOffset(1.2);
    		null1->GetYaxis()->SetTitleSize(0.03);
    		null1->GetYaxis()->SetLabelSize(0.03);
    		null1->Draw();
 		//g_pval->Draw("pc same");	// P value distribution
-		g_exclu->Draw("pc same");	// Exclusion distribution
+		g_exclu->Draw("p same");	// Exclusion distribution
 		l1->Draw("same"); 		// Line 95%  CLs 
 		//l2->Draw("same"); 			// Line 5 sigmma
 	pad1->cd();
