@@ -9,31 +9,33 @@ void p_val() {
 // --Lumi and xsec
 	const double Lumi         = 150000.0;
 	//const double xsecSignal   = 0.00031847;
-	const double xsecSignal   = 0.00127224;
+	//const double xsecSignal   = 0.00127224;
+	const double xsecSignal   = 0.0012723;
 	
 	// --ZZ
 	//const double xsecBKG      = 0.020879202;
 	
 	// --4l
-	const double xsecBKG      = 0.02461615231;
+	//const double xsecBKG      = 0.02461615231;
+	const double xsecBKG      = 0.02460380139;
 
 // --read file,hist
-	TFile *fSignal     = TFile::Open("HtoZZto4l.root")     ;
+	TFile *fSignal     = TFile::Open("HtoZZto4l_more_v2.root")     ;
 	//TFile *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
-	TFile *fBKG	       = TFile::Open("BKG4l.root")         ;
+	TFile *fBKG	       = TFile::Open("BKG4l_more_v2.root")         ;
 	
-	TString histname = "h_mass4l_mat"; 
+	TString histname = "4lMass"; 
 	
 
 
 	
 // --Weighting: Number of expected events
-	TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/100000*Lumi) ;
-	TH1F *hBKG 	  = (TH1F*)fBKG	  ->Get(histname); hBKG	  ->Scale(xsecBKG/100000*Lumi) ;
+	TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/328351*Lumi) ;
+	TH1F *hBKG 	  = (TH1F*)fBKG	  ->Get(histname); hBKG	  ->Scale(xsecBKG/328351*Lumi) ;
 
 
 // --rebinning: Inegrate the mass point
-    rebin=21;
+    rebin=80;
 	hSignal->Rebin(rebin);
     hBKG->Rebin(rebin);
 
@@ -69,7 +71,7 @@ void p_val() {
 	}
 
 // --Plotting P-value or CLs
-	//TGraph *g_pval = new TGraph(Endbin-Startbin+1,x,y_pval);	XMAX=140; XMIN=110;  YMIN=1.0e-9;YMAX=10; TString YaxisName="Local P value";
+	//TGraph *g_pval = new TGraph(Endbin-Startbin+1,x,y_pval);	XMAX=180; XMIN=70;  YMIN=1.0e-9;YMAX=10; TString YaxisName="Local P value";
 	TGraph *g_exclu = new TGraph(Endbin-Startbin+1,x,y_exclu);	XMAX=140; XMIN=110;  YMIN=1.0e-10; YMAX=10; TString YaxisName="Exclusion rate";
 	
 
@@ -88,7 +90,7 @@ void p_val() {
 	l1->SetLineColor(2);
 	
 	// --Significance 5 sigma
-	TLine *l2 = new TLine(110,0.000333924,140,0.000333924);
+	TLine *l2 = new TLine(110,2.11972e-06,140,2.11972e-06);
 	l2->SetLineStyle(7);
 	l2->SetLineWidth(4);
 	l2->SetLineColor(2);
@@ -116,7 +118,7 @@ void p_val() {
    		TH2F *null1 = new TH2F("null1","", 2, XMIN, XMAX, 2, YMIN,YMAX);
    		null1->GetYaxis()->SetTitle(YaxisName);
    		null1->GetXaxis()->SetTitle(Form("M_{4l} / %3.1f GeV",xperbin));
-   		null1->GetYaxis()->SetTitleOffset(0.8);
+   		null1->GetYaxis()->SetTitleOffset(1.4);
    		null1->GetXaxis()->SetTitleOffset(1.2);
    		null1->GetYaxis()->SetTitleSize(0.03);
    		null1->GetYaxis()->SetLabelSize(0.03);
@@ -134,8 +136,8 @@ void p_val() {
 
 
 
-	//c1->Print("P_val.png");
-	c1->Print("CLs.png");
+	//c1->Print("pval_global.png");
+	//c1->Print("CLs_local.png");
 
 }
 

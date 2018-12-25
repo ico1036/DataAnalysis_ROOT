@@ -8,30 +8,33 @@ long YMAX   = 100;
 
 // --Lumi and xsec
 	const double Lumi         = 150000.0;
-	//const double xsecSignal   = 0.00031847;
-	const double xsecSignal   = 0.00127224;
+	//const double xsecSignal   = 0.00127224;
+	const double xsecSignal   = 0.0012723;
 	
 	// --ZZ
 	//const double xsecBKG      = 0.020879202;
 	
 	// --4l
-	const double xsecBKG      = 0.02461615231;
+	//const double xsecBKG      = 0.02461615231;
+	const double xsecBKG      = 0.02460380139;
 
 // --read file,hist
-	TFile *fSignal     = TFile::Open("HtoZZto4l.root")     ;
-	//TFile *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
-	TFile *fBKG	       = TFile::Open("BKG4l.root")         ;
+	//TFile *fSignal     = TFile::Open("HtoZZto4l_v2.root")     ;
+	TFile *fSignal     = TFile::Open("HtoZZto4l_more_v2.root")     ;
+	//File *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
+	TFile *fBKG	       = TFile::Open("BKG4l_more_v2.root")         ;
+	//TFile *fBKG	       = TFile::Open("BKG4l_v2.root")         ;
 	
 	//TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=20; YMAX=200;
-	TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=20; YMAX=20;
-	//TString histname = "4lMass"; XMAX=140; XMIN=110; rebin=1; YMAX=20;
+	//TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=20; YMAX=150;
+	TString histname = "4lMass"; XMAX=180; XMIN=70; rebin=155; YMAX=50;
 	//TString histname = "h_mass4l"; XMAX=200; XMIN=0; rebin=20; YMAX=140;
 	//TString histname = "h_Z1Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
 	//TString histname = "h_Z2Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
 	
 // --Weighting	
-	TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/100000*Lumi) ;
-	TH1F *hBKG 	  = (TH1F*)fBKG	  ->Get(histname); hBKG	  ->Scale(xsecBKG/100000*Lumi) ;
+	TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/328351*Lumi) ;
+	TH1F *hBKG 	  = (TH1F*)fBKG	  ->Get(histname); hBKG	  ->Scale(xsecBKG/328351*Lumi) ;
 
 
 // --histrogram design	
@@ -56,10 +59,10 @@ long YMAX   = 100;
 	TF1 *bkgfit = new TF1("bkgfit","gaus(0)+f1",70,180);
 	
 	bkgfit->SetParLimits(1,80,100);	
-	bkgfit->SetParLimits(2,0.5,2);	
-	bkgfit->SetParLimits(3,8,15);	
-	bkgfit->SetParLimits(4,120,140);	
-	bkgfit->SetParLimits(5,12,30);	
+	bkgfit->SetParLimits(2,2,4);	
+	bkgfit->SetParLimits(3,25,35);	
+	bkgfit->SetParLimits(4,135,142);	
+	bkgfit->SetParLimits(5,18,30);	
 	
 	sigfit->SetLineColor(2);	
 	bkgfit->SetLineColor(4);	
@@ -88,6 +91,9 @@ long YMAX   = 100;
 
 
 	double binwidth= hBKG->GetBinWidth(1);
+	//double binwidth= (180-70+1.0)/(hBKG->GetXaxis()->FindBin(180) - hBKG->GetXaxis()->FindBin(70) + 1);
+
+
 
 	TCanvas* c1 = new TCanvas("c1", "c1", 500, 500);
 	   	TPad *pad1 = new TPad("pad1", "pad1", 0.0, 0.0001, 1.0, 1.0);
@@ -106,9 +112,9 @@ long YMAX   = 100;
    		null1->Draw();
    		 hBKG->Draw("p same");
    		 hSignal->Draw("p same");
-   		bkgfit->Draw("same");
-   		sigfit->Draw("same");
-		//glbfit->Draw("same");
+   		//bkgfit->Draw("same");
+   		//sigfit->Draw("same");
+		glbfit->Draw("same");
 
 // --legend	
    	TLegend *l0 = new TLegend(0.65,0.89,0.90,0.65);
@@ -137,7 +143,7 @@ long YMAX   = 100;
     //c1->Print(histname + "Kinematic_ll.png");
     //c1->Print("window200_" +histname + "Kinematic_ZZ.png");
 	//c1->Print("fit_result_global.png");
-	c1->Print("fit_result.png");
+	c1->Print("fit_glob_result.png");
 	//c1->Print("fit_result_narrow.png");
 	//c1->Print("4lmass.png");
 
