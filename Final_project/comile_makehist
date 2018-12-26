@@ -1,3 +1,0 @@
-g++ `root-config --cflags` `root-config --libs` makeHist.C -I/home/jkim/Generator/Delphes/Delphes-3.4.1 -L/home/jkim/Generator/Delphes/Delphes-3.4.1 -lDelphes -o makeHist.exe
-export LD_LIBRARY_PATH=/home/jkim/Generator/Delphes/Delphes-3.4.1:$LD_LIBRARY_PATH
-

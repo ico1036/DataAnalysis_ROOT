@@ -83,6 +83,7 @@ int main(int argc, char** argv) {
 
 	int num_C1324ele_withcut=0;
 	int num_C1234ele_withcut=0;
+	int num_4ele_matching_withcut=0;
 
 // --Event Loop start
 	
@@ -446,7 +447,8 @@ outTree->Fill();
 
 	num_4ele_matching = num_C1324ele + num_C1234ele ;
 	num_4mu_matching =  num_C1324mu + num_C1234mu	;
-
+	num_4ele_matching_withcut = num_C1324ele_withcut + num_C1234ele_withcut;
+	
 	cout << " ##########	num_eletot"    << num_eletot 		<< endl;
 	cout << " ##########	num_eleSeltot" << num_eleSeltot << endl;
 	cout << " ##########	num_mutot"    << num_mutot 		<< endl;

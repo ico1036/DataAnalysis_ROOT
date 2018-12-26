@@ -98,7 +98,9 @@ int main(int argc, char** argv) {
 	int num_lepcut2 = 0 ;
 	
 	int num_4mu_matching=0;
+	int num_4mu_matching_withcut=0;
 	int num_4ele_matching=0;
+	int num_4ele_matching_withcut=0;
 
 // --Event Loop start
 	
@@ -228,6 +230,7 @@ int main(int argc, char** argv) {
 		h_Z2Mass->Fill(Z2Vec.M());
 
 	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 180) continue;
+		num_4ele_matching_withcut++;
 		hM_anal->Fill(Z1Z2Vec.M());
 		}		
 
@@ -302,6 +305,7 @@ int main(int argc, char** argv) {
 	    if(Z1Z2Vec.M() < 70 || Z1Z2Vec.M() > 180) continue;
 		hM_anal->Fill(Z1Z2Vec.M());
 	
+		num_4mu_matching_withcut++;
 	
 		}
 
@@ -419,8 +423,9 @@ outTree->Fill();
 
 	cout << " ##########	num_4ele  	" <<	num_4ele   << endl;
 	cout << " ##########	ele_matching " <<	num_4ele_matching   << endl;
+	cout << " ##########	ele_matching_withcut " <<	num_4ele_matching_withcut   << endl;
 	cout << " ##########	num_4mu   	" <<	num_4mu    << endl;
-	cout << " ##########	mu_mathcing  " <<	num_4mu_matching    << endl;
+	cout << " ##########	mu_mathcing_withcut  " <<	num_4mu_matching_withcut    << endl;
 	cout << " ##########	num_2e2m  	" <<	num_2e2m   << endl;
 	
 	h_mass4l->Add(h_mass2e2m);

@@ -8,48 +8,49 @@ long YMAX   = 100;
 
 // --Lumi and xsec
 	const double Lumi         = 150000.0;
-	//const double xsecSignal   = 0.00127224;
-	const double xsecSignal   = 0.0012723;
+	const double xsecSignal   = 0.00127224;
+	//const double xsecSignal   = 0.0012723;
 	
 	// --ZZ
 	//const double xsecBKG      = 0.020879202;
 	
 	// --4l
-	//const double xsecBKG      = 0.02461615231;
-	const double xsecBKG      = 0.02460380139;
+	const double xsecBKG      = 0.02461615231;
+	//const double xsecBKG      = 0.02460380139;
 
 // --read file,hist
-	//TFile *fSignal     = TFile::Open("HtoZZto4l_v2.root")     ;
-	TFile *fSignal     = TFile::Open("HtoZZto4l_more_v2.root")     ;
+	TFile *fSignal     = TFile::Open("HtoZZto4l_v2.root")     ;
+	//TFile *fSignal     = TFile::Open("HtoZZto4l_more_v2.root")     ;
 	//File *fBKG	       = TFile::Open("BKG_ZZ.root")         ;
-	TFile *fBKG	       = TFile::Open("BKG4l_more_v2.root")         ;
-	//TFile *fBKG	       = TFile::Open("BKG4l_v2.root")         ;
+	//TFile *fBKG	       = TFile::Open("BKG4l_more_v2.root")         ;
+	TFile *fBKG	       = TFile::Open("BKG4l_v2.root")         ;
 	
 	//TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=20; YMAX=200;
 	//TString histname = "h_mass4l_mat"; XMAX=180; XMIN=70; rebin=20; YMAX=150;
-	TString histname = "4lMass"; XMAX=180; XMIN=70; rebin=155; YMAX=50;
+	TString histname = "4lMass"; XMAX=180; XMIN=70; rebin=155; YMAX=20;
 	//TString histname = "h_mass4l"; XMAX=200; XMIN=0; rebin=20; YMAX=140;
 	//TString histname = "h_Z1Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
 	//TString histname = "h_Z2Mass"; XMAX=200; XMIN=0; rebin=1; YMAX=1000;
 	
 // --Weighting	
-	TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/328351*Lumi) ;
-	TH1F *hBKG 	  = (TH1F*)fBKG	  ->Get(histname); hBKG	  ->Scale(xsecBKG/328351*Lumi) ;
+	TH1F *hSignal = (TH1F*)fSignal->Get(histname); hSignal->Scale(xsecSignal/100000*Lumi) ;
+	TH1F *hBKG 	  = (TH1F*)fBKG	  ->Get(histname); hBKG	  ->Scale(xsecBKG/100000*Lumi) ;
 
 
 // --histrogram design	
 	
-	//hSignal->SetLineWidth(3); hSignal->SetLineColor(2);
-	//hBKG->SetFillColor(38); hBKG->SetLineColor(38);
+	hSignal->SetLineWidth(3); hSignal->SetLineColor(2);
+	hBKG->SetFillColor(38); hBKG->SetLineColor(38);
 	
-	hSignal->SetMarkerStyle(34); hSignal->SetMarkerColor(2);
-	hBKG->SetMarkerStyle(34);	hBKG->SetMarkerColor(4);
+	//hSignal->SetMarkerStyle(34); hSignal->SetMarkerColor(2);
+	//hBKG->SetMarkerStyle(34);	hBKG->SetMarkerColor(4);
 
 
 // --rebinning
 	hSignal->Rebin(rebin);
 	hBKG->Rebin(rebin);
-	
+
+/*	
 // --fitting function
 	
 
@@ -80,7 +81,7 @@ long YMAX   = 100;
 
 	cout << "background Chi2/ndf: " << bkgfit->GetChisquare()/5 << endl;
 	cout << "signal 	Chi2/ndf: " << sigfit->GetChisquare()/2 << endl;
-
+*/
 // --Pad Design
    gStyle->SetOptStat(0);
    gStyle->SetCanvasColor(0);
@@ -110,11 +111,11 @@ long YMAX   = 100;
    		null1->GetYaxis()->SetTitleSize(0.03);
    		null1->GetYaxis()->SetLabelSize(0.03);
    		null1->Draw();
-   		 hBKG->Draw("p same");
-   		 hSignal->Draw("p same");
+   		 hBKG->Draw("same");
+   		 hSignal->Draw("same");
    		//bkgfit->Draw("same");
    		//sigfit->Draw("same");
-		glbfit->Draw("same");
+		//glbfit->Draw("same");
 
 // --legend	
    	TLegend *l0 = new TLegend(0.65,0.89,0.90,0.65);
@@ -122,11 +123,11 @@ long YMAX   = 100;
    		l0->SetBorderSize(0);
    		l0->SetTextSize(0.03);
 
-	  //TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  );    l01->SetTextColor(hSignal->GetLineColor());  
-	  //TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"f"  ); l02->SetTextColor(hBKG->GetLineColor());
+	  TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  );    l01->SetTextColor(hSignal->GetLineColor());  
+	  TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"f"  ); l02->SetTextColor(hBKG->GetLineColor());
 	  
-	  TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  );    l01->SetTextColor(sigfit->GetLineColor());  
-	  TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"l"  ); l02->SetTextColor(bkgfit->GetLineColor());
+	  //TLegendEntry* l01 = l0->AddEntry(hSignal,"Signal"   ,"l"  );    l01->SetTextColor(sigfit->GetLineColor());  
+	  //TLegendEntry* l02 = l0->AddEntry(hBKG,"Background"     ,"l"  ); l02->SetTextColor(bkgfit->GetLineColor());
 	  
 	 // TLegendEntry* l03 = l0->AddEntry(glbfit,"GlobalFit"     ,"l"  ); l03->SetTextColor(glbfit->GetLineColor());
 	
@@ -143,7 +144,7 @@ long YMAX   = 100;
     //c1->Print(histname + "Kinematic_ll.png");
     //c1->Print("window200_" +histname + "Kinematic_ZZ.png");
 	//c1->Print("fit_result_global.png");
-	c1->Print("fit_glob_result.png");
+	//c1->Print("fit_glob_result.png");
 	//c1->Print("fit_result_narrow.png");
 	//c1->Print("4lmass.png");
 
