@@ -35,7 +35,7 @@ void p_val() {
 
 
 // --rebinning: Inegrate the mass point
-    rebin=80;
+    rebin=40;
 	hSignal->Rebin(rebin);
     hBKG->Rebin(rebin);
 
@@ -61,9 +61,9 @@ void p_val() {
 		double exclusion_expected = GetExclusion(N_exptect_bgr + N_exptect_sig,N_exptect_bgr);
 
 	
-			//cout <<hSignal->GetXaxis()->GetBinCenter(nbin) << "			"<< pvalue_expected <<"			" << significance_expected << endl;
+			cout <<hSignal->GetXaxis()->GetBinCenter(nbin) << "			"<< pvalue_expected <<"			" << significance_expected << endl;
 			//cout <<hSignal->GetXaxis()->GetBinCenter(nbin) << "						"<< exclusion_expected << endl;
-			cout << N_exptect_sig << "					" << N_exptect_bgr << endl;
+			//cout << N_exptect_sig << "					" << N_exptect_bgr << endl;
 			x[nbin-Startbin] = hSignal->GetXaxis()->GetBinCenter(nbin);
 			y_pval[nbin-Startbin] = pvalue_expected;
 			y_exclu[nbin-Startbin] = exclusion_expected;
@@ -71,15 +71,15 @@ void p_val() {
 	}
 
 // --Plotting P-value or CLs
-	//TGraph *g_pval = new TGraph(Endbin-Startbin+1,x,y_pval);	XMAX=180; XMIN=70;  YMIN=1.0e-9;YMAX=10; TString YaxisName="Local P value";
-	TGraph *g_exclu = new TGraph(Endbin-Startbin+1,x,y_exclu);	XMAX=140; XMIN=110;  YMIN=1.0e-10; YMAX=10; TString YaxisName="Exclusion rate";
+	TGraph *g_pval = new TGraph(Endbin-Startbin+1,x,y_pval);	XMAX=140; XMIN=110;  YMIN=1.0e-9;YMAX=10; TString YaxisName="Local P value";
+	//TGraph *g_exclu = new TGraph(Endbin-Startbin+1,x,y_exclu);	XMAX=140; XMIN=110;  YMIN=1.0e-10; YMAX=10; TString YaxisName="Exclusion rate";
 	
 
 
 // --graph design	
 	
-	//g_pval->SetMarkerStyle(20);		g_pval->SetMarkerColor(1);
-	g_exclu->SetMarkerStyle(20);	g_exclu->SetMarkerColor(1);
+	g_pval->SetMarkerStyle(20);		g_pval->SetMarkerColor(1);
+	//g_exclu->SetMarkerStyle(20);	g_exclu->SetMarkerColor(1);
 
 	double xperbin  = (XMAX-XMIN)/(Endbin-Startbin+1);
 	
@@ -90,7 +90,7 @@ void p_val() {
 	l1->SetLineColor(2);
 	
 	// --Significance 5 sigma
-	TLine *l2 = new TLine(110,2.11972e-06,140,2.11972e-06);
+	TLine *l2 = new TLine(110,0.00151684,140,0.00151684);
 	l2->SetLineStyle(7);
 	l2->SetLineWidth(4);
 	l2->SetLineColor(2);
@@ -123,10 +123,10 @@ void p_val() {
    		null1->GetYaxis()->SetTitleSize(0.03);
    		null1->GetYaxis()->SetLabelSize(0.03);
    		null1->Draw();
-		//g_pval->Draw("pc same");	// P value distribution
-		g_exclu->Draw("p same");	// Exclusion distribution
-		l1->Draw("same"); 		// Line 95%  CLs 
-		//l2->Draw("same"); 			// Line 5 sigmma
+		g_pval->Draw("pc same");	// P value distribution
+		//g_exclu->Draw("p same");	// Exclusion distribution
+		//l1->Draw("same"); 		// Line 95%  CLs 
+		l2->Draw("same"); 			// Line 5 sigmma
 	pad1->cd();
             TLatex latex;
             latex.SetNDC();
@@ -136,8 +136,8 @@ void p_val() {
 
 
 
-	//c1->Print("pval_global.png");
-	//c1->Print("CLs_local.png");
+	c1->Print("pval_global_half.png");
+	//c1->Print("CLs_local_half.png");
 
 }
 
